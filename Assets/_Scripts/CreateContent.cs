@@ -8,10 +8,11 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class CreateContent : MonoBehaviour
+public class CreateSpawnButton : MonoBehaviour
 {
     [SerializeField] List<GameObject> items = new List<GameObject>();
     [SerializeField] GameObject button;
+    [SerializeField] Transform parent;
 
     // void createTag(string tag)
     // {
@@ -34,11 +35,11 @@ public class CreateContent : MonoBehaviour
     void onclickstuff(GameObject item)
     {
 
-        GameObject obj = Instantiate<GameObject>(item, Vector3.zero, Quaternion.identity);
+        GameObject obj = Instantiate<GameObject>(item, Vector3.zero, Quaternion.identity,parent);
         //obj.tag = "Editable";
 
-        if (!obj.GetComponent<ClickStuff>())
-            obj.AddComponent<ClickStuff>();
+        if (!obj.GetComponent<ObjectSelect>())
+            obj.AddComponent<ObjectSelect>();
 
     }
 

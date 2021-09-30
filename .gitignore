@@ -63,3 +63,7 @@ crashlytics-build.properties
 
 #Additions
 .vscode/
+
+Assets/Plugins/EnginesInclass.dll
+
+Assets/Plugins/EnginesInclass.dll.meta

@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour, IPlayModeActions
     Vector3 respawnPoint = Vector3.zero;
 
     bool move, rotate;
-    float moveSpd = 150, moveMax = 15, rotSpd = 50, jumpForce = 25;
+    float moveSpd = 50, moveMax = 15, rotSpd = 50, jumpForce = 25;
 
 private void OnCollisionEnter(Collision other)
 {

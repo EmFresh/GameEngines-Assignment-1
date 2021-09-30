@@ -7,11 +7,10 @@ public class PanelControl : MonoBehaviour
     public GameObject title, pos, rot;
 
     GameObject current;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+ 
+ public void removeObject(){
+     Destroy(current);
+ }
 
     // Update is called once per frame
     void Update()
