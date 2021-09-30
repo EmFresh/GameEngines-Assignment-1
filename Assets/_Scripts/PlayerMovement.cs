@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using Unity.Mathematics;
 using static Unity.Mathematics.math;
 using static MainControls;
+using static Point;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour, IPlayModeActions
@@ -12,9 +13,43 @@ public class PlayerMovement : MonoBehaviour, IPlayModeActions
     MainControls controls;
     MainControls.PlayModeActions play;
 
+    Vector3 respawnPoint = Vector3.zero;
+
     bool move, rotate;
     float moveSpd = 150, moveMax = 15, rotSpd = 50, jumpForce = 25;
 
+private void OnCollisionEnter(Collision other)
+{
+        if (other.gameObject.name.ToLower() == "floor")
+            respawn();
+    
+}
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.gameObject.tag != "Point") return;
+
+        switch (other.gameObject.GetComponent<Point>().type)
+        {
+            case PointType.START:
+                //nothing I guess?
+                break;
+            case PointType.CHECK:
+                //respawn
+                respawnPoint = other.gameObject.transform.position;
+                break;
+            case PointType.END:
+                //classic
+                Application.Quit();
+                break;
+        }
+    }
+    void respawn()
+    {
+        transform.position = respawnPoint;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+    }
     private void FixedUpdate()
     {
         if (move)
@@ -85,7 +120,7 @@ public class PlayerMovement : MonoBehaviour, IPlayModeActions
     {
         if (!ctx.started) return;
         var body = GetComponent<Rigidbody>();
-        var onfloor = Physics.Raycast(transform.position, Vector3.down, 1.01f);
+        var onfloor = Physics.Raycast(transform.position, Vector3.down, 1.07f);
 
         if (onfloor)
             body.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
@@ -96,6 +131,12 @@ public class PlayerMovement : MonoBehaviour, IPlayModeActions
         if (controls == null)
         {
             Physics.gravity = new Vector3(0, -33.141596f, 0);
+
+            var points = GameObject.FindObjectsOfType<Point>();
+           
+            foreach (var point in points)
+                if (point.type == Point.PointType.START)
+                { respawnPoint = point.gameObject.transform.position; respawn(); break; }
 
 
             rot = transform.GetChild(0).rotation.eulerAngles;

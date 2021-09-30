@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7550875504976431904}
   - component: {fileID: -5586010901592513886}
   - component: {fileID: -9123919227768590909}
+  - component: {fileID: -116249723134743143}
   m_Layer: 0
   m_Name: Start Point
   m_TagString: Untagged
@@ -108,3 +109,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad2a155fbb0d6a48a9d47cc5ad061b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-116249723134743143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4331197351417804842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcf09c3e5f11264a8110cc5685a1510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
