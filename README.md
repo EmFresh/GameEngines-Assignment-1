@@ -8,4 +8,4 @@ https://youtu.be/sUNjKs4CLgw
 (Code)
 https://youtu.be/trW01WlN3mE
 (Test)
-[![Watch the video](https://img.https://youtube.com/sUNjKs4CLgw/hqdefault.jpg)](https://youtu.be/sUNjKs4CLgw)
+[![Watch the video](https://img.youtube.com/vi/sUNjKs4CLgw/maxresdefault.jpg)](https://youtu.be/sUNjKs4CLgw)
