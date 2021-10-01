@@ -1,8 +1,7 @@
-using System.Runtime.InteropServices.ComTypes;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.Events;
+
+//using UnityEditor.Events;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -14,28 +13,10 @@ public class CreateSpawnButton : MonoBehaviour
     [SerializeField] GameObject button;
     [SerializeField] Transform parent;
 
-    // void createTag(string tag)
-    // {
-    //     var tagManager = AssetDatabase.LoadAllAssetsAtPath("projectsettings/tagmanager.asset");
-    //     var obj = new SerializedObject(tagManager[0]);
-    //     var tags = obj.FindProperty("tags");
-    //
-    //     for (int a = 0; a < tags.arraySize; ++a)
-    //         if (tags.GetArrayElementAtIndex(a).stringValue == tag) return;
-    //
-    //     tags.InsertArrayElementAtIndex(0);
-    //     tags.GetArrayElementAtIndex(0).stringValue = tag;
-    //
-    //     obj.ApplyModifiedProperties();
-    //     obj.Update();
-    // }
-
-
-    // List< GameObject>objs;
     void onclickstuff(GameObject item)
     {
 
-        GameObject obj = Instantiate<GameObject>(item, Vector3.zero, Quaternion.identity,parent);
+        GameObject obj = Instantiate<GameObject>(item, Vector3.zero, Quaternion.identity, parent);
         //obj.tag = "Editable";
 
         if (!obj.GetComponent<ObjectSelect>())

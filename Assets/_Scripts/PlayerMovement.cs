@@ -18,12 +18,12 @@ public class PlayerMovement : MonoBehaviour, IPlayModeActions
     bool move, rotate;
     float moveSpd = 50, moveMax = 15, rotSpd = 50, jumpForce = 25;
 
-private void OnCollisionEnter(Collision other)
-{
+    private void OnCollisionEnter(Collision other)
+    {
         if (other.gameObject.name.ToLower() == "floor")
             respawn();
-    
-}
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -133,7 +133,7 @@ private void OnCollisionEnter(Collision other)
             Physics.gravity = new Vector3(0, -33.141596f, 0);
 
             var points = GameObject.FindObjectsOfType<Point>();
-           
+
             foreach (var point in points)
                 if (point.type == Point.PointType.START)
                 { respawnPoint = point.gameObject.transform.position; respawn(); break; }

@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,16 +10,17 @@ public class EditMovement : MonoBehaviour, IEditModeActions
 {
     public MainControls controls;
     bool move, upnDown, rotate;
-    float moveSpd = 5, rotSpd = 25;
+    float moveSpd = 15, rotSpd = 25;
     MainControls.EditModeActions edit;
-  
+
     private void Update()
     {
-        if (move || upnDown)
+        if (move)
         {
-
-            transform.position += transform.forward * pos.z + transform.up * pos.y + transform.right * pos.x* Time.deltaTime * moveSpd;
+            transform.position += (Vector3)(normalize(transform.forward * pos.z + transform.right * pos.x) * Time.deltaTime * moveSpd);
         }
+        if (upnDown)
+            transform.position += (Vector3)(normalize(transform.up * pos.y) * Time.deltaTime * moveSpd);
         if (rotate)
         {
             rot += rotVec * Time.deltaTime * rotSpd;
@@ -33,13 +33,12 @@ public class EditMovement : MonoBehaviour, IEditModeActions
     {
         move = !ctx.canceled;
 
-        pos = transform.position;
         print(ctx.control.name);
 
         if (ctx.control.name == "q" || ctx.control.name == "e")
         {
             print(ctx.ReadValue<float>());
-            pos = new Vector3(0, ctx.ReadValue<float>(), 0) ;
+            pos = new Vector3(0, ctx.ReadValue<float>(), 0);
         }
         else
         {
@@ -51,8 +50,8 @@ public class EditMovement : MonoBehaviour, IEditModeActions
     public void OnUpnDown(InputAction.CallbackContext ctx)
     {
         upnDown = !ctx.canceled;
-        var tmp = move;
-        if (upnDown)
+        var tmp = !!move;
+       // if (upnDown)
             OnMovement(ctx);
         move = tmp;
     }
@@ -62,7 +61,6 @@ public class EditMovement : MonoBehaviour, IEditModeActions
     {
         rotate = !ctx.canceled;
 
-        rot = transform.rotation.eulerAngles;
         print(ctx.ReadValue<Vector2>());
         rotVec = new Vector3(-ctx.ReadValue<Vector2>().y, ctx.ReadValue<Vector2>().x, 0);
 
@@ -72,6 +70,9 @@ public class EditMovement : MonoBehaviour, IEditModeActions
     {
         if (controls == null)
         {
+            pos = transform.position;
+            rot = transform.rotation.eulerAngles;
+
             controls = new MainControls();
             edit = controls.EditMode;
             edit.SetCallbacks(this);

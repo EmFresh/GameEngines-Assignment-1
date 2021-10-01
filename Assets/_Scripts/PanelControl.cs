@@ -7,10 +7,12 @@ public class PanelControl : MonoBehaviour
     public GameObject title, pos, rot;
 
     GameObject current;
- 
- public void removeObject(){
-     Destroy(current);
- }
+
+    public void removeObject()
+    {
+        Destroy(current);
+        current = null;
+    }
 
     // Update is called once per frame
     void Update()
@@ -22,7 +24,7 @@ public class PanelControl : MonoBehaviour
             if (!current) return;
 
             var tit = title.GetComponent<TMP_Text>().text;
-            title.GetComponent<TMP_Text>().text = tit.Substring(0, tit.IndexOf(' ')+1) + current.name;
+            title.GetComponent<TMP_Text>().text = tit.Substring(0, tit.IndexOf(' ') + 1) + current.name;
 
             var tmp = GameControl.selectedObj.transform;
             pos.transform.GetChild(0).GetComponent<TMP_InputField>().text = tmp.position.x.ToString();
@@ -46,7 +48,7 @@ public class PanelControl : MonoBehaviour
 
         current.transform.position = new Vector3(posx, posy, posz);
         current.transform.rotation = Quaternion.Euler(new Vector3(rotx, roty, rotz));
-       // print("Position: " + current.transform.position);
-       // print("Rotation: " + current.transform.rotation.eulerAngles);
+        // print("Position: " + current.transform.position);
+        // print("Rotation: " + current.transform.rotation.eulerAngles);
     }
 }
