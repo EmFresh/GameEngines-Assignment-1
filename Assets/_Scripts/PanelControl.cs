@@ -23,9 +23,11 @@ public class PanelControl : MonoBehaviour
             current = GameControl.selectedObj;
             if (!current) return;
 
+            //title change
             var tit = title.GetComponent<TMP_Text>().text;
             title.GetComponent<TMP_Text>().text = tit.Substring(0, tit.IndexOf(' ') + 1) + current.name;
 
+            //transform init
             var tmp = GameControl.selectedObj.transform;
             pos.transform.GetChild(0).GetComponent<TMP_InputField>().text = tmp.position.x.ToString();
             pos.transform.GetChild(1).GetComponent<TMP_InputField>().text = tmp.position.y.ToString();
