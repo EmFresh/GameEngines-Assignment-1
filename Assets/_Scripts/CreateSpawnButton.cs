@@ -21,6 +21,8 @@ public class CreateSpawnButton : MonoBehaviour
 
         if (!obj.GetComponent<ObjectSelect>())
             obj.AddComponent<ObjectSelect>();
+        if (!obj.GetComponent<RandScale>())
+            obj.AddComponent<RandScale>();
 
     }
 

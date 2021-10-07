@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,14 @@ using System;
 
 public class Scaler : MonoBehaviour
 {
-    public struct vec3 { public float x = 1, y = 1, z = 1; }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct vec3
+    {
+        public vec3(float x, float y, float z)
+        { this.x = x; this.y = y; this.z = z; }
+        public float x, y, z;
+    }
 
 #if UNITY_EDITOR
     const string DLL = "/Plugins/EnginesTestDLL.DLL";
@@ -16,7 +24,7 @@ public class Scaler : MonoBehaviour
     static IntPtr _pluginHandle = IntPtr.Zero;
 
     #region Plugin Handling
-    public static void initNetworkPlugin()
+    public static void initPlugin()
     {
         if (_pluginHandle != IntPtr.Zero) return;
 
