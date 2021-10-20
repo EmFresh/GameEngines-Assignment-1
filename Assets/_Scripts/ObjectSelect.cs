@@ -6,7 +6,10 @@ using UnityEngine.EventSystems;
 
 public class ObjectSelect : MonoBehaviour, IPointerClickHandler
 {
+    public GameObject prefab;
+
     public void OnPointerClick(PointerEventData eventData) =>
           GameControl.selectedObj = GameControl.editMode ? gameObject : GameControl.selectedObj;
+
 
 }

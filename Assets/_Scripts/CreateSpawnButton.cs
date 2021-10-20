@@ -11,26 +11,24 @@ public class CreateSpawnButton : MonoBehaviour
 {
     [SerializeField] List<GameObject> items = new List<GameObject>();
     [SerializeField] GameObject button;
+
     [SerializeField] Transform parent;
+
+
 
     void onclickstuff(GameObject item)
     {
 
-        GameObject obj = Instantiate<GameObject>(item, Vector3.zero, Quaternion.identity, parent);
-        //obj.tag = "Editable";
-
-        if (!obj.GetComponent<ObjectSelect>())
-            obj.AddComponent<ObjectSelect>();
-        if (!obj.GetComponent<RandScale>())
-            obj.AddComponent<RandScale>();
+        CreateAction create = new CreateAction(item, new GameObject().transform, parent);
+        Invoker.addAction(create);
 
     }
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        //  createTag("Editable");
-
         int a = 0;
         float spacing = 2;
         var trans = button.GetComponent<RectTransform>();
