@@ -2,30 +2,62 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class MyTransform
+{
+
+    public MyTransform(Transform trans)
+    {
+        pos = trans.position;
+        scale = trans.localScale;
+        rot = trans.rotation;
+    }
+    public MyTransform(MyTransform trans)
+    {
+        pos = trans.pos;
+        scale = trans.scale;
+        rot = trans.rot;
+    }
+    public MyTransform()
+    {
+        // pos = Vector3.zero;
+        // rot = Quaternion.identity;
+        // scale = Vector3.one;
+    }
+    public Vector3 pos = Vector3.zero, scale = Vector3.one;
+    public Quaternion rot = Quaternion.identity;
+}
+
 public class TransformAction : IMyAction
 {
-    public GameObject lnk { get; private set; }
-    Vector3 lastPos, pos;
-    Quaternion lastRot, rot;
+    public GameObject lnk { get; set; }
+    public string name { get; set; }
 
-    public TransformAction(GameObject lnk, Transform trans)
+    MyTransform lastTrans, trans;
+
+
+    public TransformAction(GameObject lnk, MyTransform trans)
     {
         this.lnk = lnk;
-        rot = trans.rotation;
-        pos = trans.position;
+        this.name = lnk.name;
+        this.trans = trans;
+        //rot = trans.rot;
+        //pos = trans.pos;
     }
+
+
     public void Invoke()
     {
-        lastPos = lnk.transform.position;
-        lastRot = lnk.transform.rotation;
+        lastTrans = new MyTransform(lnk.transform);
+        //   lastPos = lnk.transform.position;
+        //   lastRot = lnk.transform.rotation;
 
-        lnk.transform.position = pos;
-        lnk.transform.rotation = rot;
+        lnk.transform.position = trans.pos;
+        lnk.transform.rotation = trans.rot;
 
     }
     public void Undo()
     {
-        lnk.transform.position = lastPos;
-        lnk.transform.rotation = lastRot;
+        lnk.transform.position = lastTrans.pos;
+        lnk.transform.rotation = lastTrans.rot;
     }
 }

@@ -5,18 +5,20 @@ using UnityEngine.UI;
 
 using TMPro;
 
+
 public class PanelControl : MonoBehaviour
 {
     public GameObject title, pos, rot, randMax, randMin;
 
     GameObject current;
-    Transform lastTransform;
+    MyTransform lastTransform;
     bool submitted = false;
     public void removeObject()
     {
-        RemoveAction remove = new RemoveAction(current, current.transform, current.GetComponent<ObjectSelect>().prefab);
+        var fab = CreateSpawnButton.statItems.Find(ctx => current.GetComponent<ObjectSelect>().prefab.name.Contains(ctx.name));
+        Invoker.addAction(new RemoveAction(current, new MyTransform(current.transform), fab));
 
-        lastTransform = null; current = null;
+        lastTransform = new MyTransform(); current = null;
     }
 
     // Update is called once per frame
@@ -41,7 +43,7 @@ public class PanelControl : MonoBehaviour
             rot.transform.GetChild(0).GetComponent<TMP_InputField>().text = tmp.rotation.eulerAngles.x.ToString();
             rot.transform.GetChild(1).GetComponent<TMP_InputField>().text = tmp.rotation.eulerAngles.y.ToString();
             rot.transform.GetChild(2).GetComponent<TMP_InputField>().text = tmp.rotation.eulerAngles.z.ToString();
-            lastTransform = current.transform;
+            lastTransform = new MyTransform(current.transform);
 
             pos.transform.GetChild(0).GetComponent<TMP_InputField>().onSubmit.RemoveAllListeners();
             pos.transform.GetChild(1).GetComponent<TMP_InputField>().onSubmit.RemoveAllListeners();
@@ -49,13 +51,39 @@ public class PanelControl : MonoBehaviour
             rot.transform.GetChild(0).GetComponent<TMP_InputField>().onSubmit.RemoveAllListeners();
             rot.transform.GetChild(1).GetComponent<TMP_InputField>().onSubmit.RemoveAllListeners();
             rot.transform.GetChild(2).GetComponent<TMP_InputField>().onSubmit.RemoveAllListeners();
-
             pos.transform.GetChild(0).GetComponent<TMP_InputField>().onSubmit.AddListener(ctx => { submitted = true; });
             pos.transform.GetChild(1).GetComponent<TMP_InputField>().onSubmit.AddListener(ctx => { submitted = true; });
             pos.transform.GetChild(2).GetComponent<TMP_InputField>().onSubmit.AddListener(ctx => { submitted = true; });
             rot.transform.GetChild(0).GetComponent<TMP_InputField>().onSubmit.AddListener(ctx => { submitted = true; });
             rot.transform.GetChild(1).GetComponent<TMP_InputField>().onSubmit.AddListener(ctx => { submitted = true; });
             rot.transform.GetChild(2).GetComponent<TMP_InputField>().onSubmit.AddListener(ctx => { submitted = true; });
+
+            pos.transform.GetChild(0).GetComponent<TMP_InputField>().onSelect.RemoveAllListeners();
+            pos.transform.GetChild(1).GetComponent<TMP_InputField>().onSelect.RemoveAllListeners();
+            pos.transform.GetChild(2).GetComponent<TMP_InputField>().onSelect.RemoveAllListeners();
+            rot.transform.GetChild(0).GetComponent<TMP_InputField>().onSelect.RemoveAllListeners();
+            rot.transform.GetChild(1).GetComponent<TMP_InputField>().onSelect.RemoveAllListeners();
+            rot.transform.GetChild(2).GetComponent<TMP_InputField>().onSelect.RemoveAllListeners();
+            pos.transform.GetChild(0).GetComponent<TMP_InputField>().onSelect.AddListener(ctx => EditMovement.controls.EditMode.Disable());
+            pos.transform.GetChild(1).GetComponent<TMP_InputField>().onSelect.AddListener(ctx => EditMovement.controls.EditMode.Disable());
+            pos.transform.GetChild(2).GetComponent<TMP_InputField>().onSelect.AddListener(ctx => EditMovement.controls.EditMode.Disable());
+            rot.transform.GetChild(0).GetComponent<TMP_InputField>().onSelect.AddListener(ctx => EditMovement.controls.EditMode.Disable());
+            rot.transform.GetChild(1).GetComponent<TMP_InputField>().onSelect.AddListener(ctx => EditMovement.controls.EditMode.Disable());
+            rot.transform.GetChild(2).GetComponent<TMP_InputField>().onSelect.AddListener(ctx => EditMovement.controls.EditMode.Disable());
+
+
+            pos.transform.GetChild(0).GetComponent<TMP_InputField>().onDeselect.RemoveAllListeners();
+            pos.transform.GetChild(1).GetComponent<TMP_InputField>().onDeselect.RemoveAllListeners();
+            pos.transform.GetChild(2).GetComponent<TMP_InputField>().onDeselect.RemoveAllListeners();
+            rot.transform.GetChild(0).GetComponent<TMP_InputField>().onDeselect.RemoveAllListeners();
+            rot.transform.GetChild(1).GetComponent<TMP_InputField>().onDeselect.RemoveAllListeners();
+            rot.transform.GetChild(2).GetComponent<TMP_InputField>().onDeselect.RemoveAllListeners();
+            pos.transform.GetChild(0).GetComponent<TMP_InputField>().onDeselect.AddListener(ctx => EditMovement.controls.EditMode.Enable());
+            pos.transform.GetChild(1).GetComponent<TMP_InputField>().onDeselect.AddListener(ctx => EditMovement.controls.EditMode.Enable());
+            pos.transform.GetChild(2).GetComponent<TMP_InputField>().onDeselect.AddListener(ctx => EditMovement.controls.EditMode.Enable());
+            rot.transform.GetChild(0).GetComponent<TMP_InputField>().onDeselect.AddListener(ctx => EditMovement.controls.EditMode.Enable());
+            rot.transform.GetChild(1).GetComponent<TMP_InputField>().onDeselect.AddListener(ctx => EditMovement.controls.EditMode.Enable());
+            rot.transform.GetChild(2).GetComponent<TMP_InputField>().onDeselect.AddListener(ctx => EditMovement.controls.EditMode.Enable());
 
             if (current.GetComponent<RandScale>())
             {
@@ -82,13 +110,14 @@ public class PanelControl : MonoBehaviour
 
 
         //Set Transformations
-        var trans = new GameObject().transform;
-        trans.position = new Vector3(posx, posy, posz);
-        trans.rotation = Quaternion.Euler(rotx, roty, rotz);
+        MyTransform trans = new MyTransform();
+
+        trans.pos = new Vector3(posx, posy, posz);
+        trans.rot = Quaternion.Euler(rotx, roty, rotz);
 
 
-        if (lastTransform.position != current.transform.position ||
-        lastTransform.rotation != current.transform.rotation)
+        if (lastTransform.pos != current.transform.position ||
+        lastTransform.rot != current.transform.rotation)
         {
             pos.transform.GetChild(0).GetComponent<TMP_InputField>().text = current.transform.position.x.ToString();
             pos.transform.GetChild(1).GetComponent<TMP_InputField>().text = current.transform.position.y.ToString();
@@ -100,13 +129,14 @@ public class PanelControl : MonoBehaviour
         }
 
         if (submitted)
-            if (trans.position != current.transform.position ||
-                trans.rotation != current.transform.rotation)
+            if (trans.pos != current.transform.position ||
+                trans.rot != current.transform.rotation)
             {
                 Invoker.addAction(new TransformAction(current, trans));
                 lastTransform = trans;
                 submitted = false;
             }
+        //Destroy(trans);
 
         if (current.GetComponent<RandScale>())
         {

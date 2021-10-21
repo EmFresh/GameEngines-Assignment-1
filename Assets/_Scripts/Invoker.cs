@@ -10,17 +10,24 @@ public class Invoker : MonoBehaviour
     [SerializeField] InputAction undo, redo;
 
     static int counter = 0;
-    static List<IMyAction>
+    public static List<IMyAction>
     master = new List<IMyAction>(),
     que = new List<IMyAction>();
 
     void Awake()
     {
         undo.started += ctx =>
-           master[--counter].Undo();
-
+        {
+            IMyAction act;
+            (act = master[--counter]).Undo();
+            print("Undo: " + act.ToString());
+        };
         redo.started += ctx =>
-           master[counter++].Invoke();
+        {
+            IMyAction act;
+            (act = master[counter++]).Invoke();
+            print("Redo: " + act.ToString());
+        };
     }
 
     private void OnEnable()
@@ -41,6 +48,8 @@ public class Invoker : MonoBehaviour
 
         master.RemoveRange(counter, master.Count - counter);
         counter -= master.Count - counter;
+
+        print("Action: " + act.ToString());
     }
 
 

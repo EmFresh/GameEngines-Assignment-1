@@ -8,7 +8,7 @@ using static Unity.Mathematics.math;
 
 public class EditMovement : MonoBehaviour, IEditModeActions
 {
-    public MainControls controls;
+    public static MainControls controls;
     bool move, upnDown, rotate;
     float moveSpd = 15, rotSpd = 25;
     MainControls.EditModeActions edit;
@@ -51,8 +51,8 @@ public class EditMovement : MonoBehaviour, IEditModeActions
     {
         upnDown = !ctx.canceled;
         var tmp = !!move;
-       // if (upnDown)
-            OnMovement(ctx);
+        // if (upnDown)
+        OnMovement(ctx);
         move = tmp;
     }
 

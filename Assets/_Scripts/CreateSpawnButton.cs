@@ -10,6 +10,8 @@ using TMPro;
 public class CreateSpawnButton : MonoBehaviour
 {
     [SerializeField] List<GameObject> items = new List<GameObject>();
+    public static List<GameObject> statItems
+    { get; private set; }
     [SerializeField] GameObject button;
 
     [SerializeField] Transform parent;
@@ -19,9 +21,8 @@ public class CreateSpawnButton : MonoBehaviour
     void onclickstuff(GameObject item)
     {
 
-        CreateAction create = new CreateAction(item, new GameObject().transform, parent);
+        CreateAction create = new CreateAction(item, new MyTransform(), parent);
         Invoker.addAction(create);
-
     }
 
 
@@ -29,6 +30,8 @@ public class CreateSpawnButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        statItems = items;
         int a = 0;
         float spacing = 2;
         var trans = button.GetComponent<RectTransform>();

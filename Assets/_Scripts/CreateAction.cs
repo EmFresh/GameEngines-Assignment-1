@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class CreateAction : IMyAction
 {
-    public GameObject lnk { get; private set; }
-    GameObject item;
-    Transform trans = new GameObject().transform, parent = new GameObject().transform;
+    public GameObject lnk { get; set; }
+    public string name { get; set; }
 
-    public CreateAction(GameObject inst, Transform trans, Transform parent)
+    GameObject item;
+    MyTransform trans;
+    Transform parent;
+
+    public CreateAction(GameObject inst, MyTransform trans, Transform parent)
     {
         this.item = inst;
-        this.trans = trans;
+        this.trans = new MyTransform(trans);
         //this.trans.position = trans.position;
         //this.trans.rotation = trans.rotation;
         this.parent = parent;
+        //lnk = null;
     }
 
     public void Invoke()
     {
-        lnk = GameObject.Instantiate<GameObject>(item, trans.position, trans.rotation, parent);
+        lnk = GameObject.Instantiate<GameObject>(item, trans.pos, trans.rot, parent);
+        name = lnk.name;
 
         if (!lnk.GetComponent<ObjectSelect>())
             lnk.AddComponent<ObjectSelect>();
