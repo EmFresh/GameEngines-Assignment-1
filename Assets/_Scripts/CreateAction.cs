@@ -27,9 +27,11 @@ public class CreateAction : IMyAction
         name = lnk.name;
 
         if (!lnk.GetComponent<ObjectSelect>())
-            lnk.AddComponent<ObjectSelect>();
-        // if (!lnk.GetComponent<RandScale>())
-        //     lnk.AddComponent<RandScale>();
+            lnk.AddComponent<ObjectSelect>().prefab = item;
+
+
+        if (!lnk.GetComponent<RandScale>())
+            lnk.AddComponent<RandScale>();
     }
 
     public void Undo()

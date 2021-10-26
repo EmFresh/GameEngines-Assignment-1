@@ -18,12 +18,14 @@ public class Invoker : MonoBehaviour
     {
         undo.started += ctx =>
         {
+            if (counter <= 0) return;
             IMyAction act;
             (act = master[--counter]).Undo();
             print("Undo: " + act.ToString());
         };
         redo.started += ctx =>
         {
+            if (counter >= master.Count) return;
             IMyAction act;
             (act = master[counter++]).Invoke();
             print("Redo: " + act.ToString());

@@ -3,22 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using util;
 
 public class Scaler : MonoBehaviour
 {
 
-    [StructLayout(LayoutKind.Sequential)]
-    public struct vec3
-    {
-        public vec3(float x, float y, float z)
-        { this.x = x; this.y = y; this.z = z; }
-        public float x, y, z;
-    }
+
 
 #if UNITY_EDITOR
-    const string DLL = "/Plugins/EnginesTestDLL.DLL";
+    const string DLL = "/Plugins/EnginesTestDLL.dll";
 #else
-    const string DLL = "/Plugins/x86_64/EnginesTestDLL.DLL";
+    const string DLL = "/Plugins/x86_64/EnginesTestDLL.dll";
 #endif
 
     static IntPtr _pluginHandle = IntPtr.Zero;
@@ -33,7 +28,7 @@ public class Scaler : MonoBehaviour
         //imported delegates 
         //    getlastnetworkerror = ManualPluginImporter.GetDelegate<getLastNetworkErrorDelegate>(_pluginHandle, "getLastNetworkError");
 
-        scaleobjectuniform = ManualPluginImporter.GetDelegate<scaleObjectUniformDelegate>(_pluginHandle, "scaleObjectUniform");
+        scaleObjectUniform = ManualPluginImporter.GetDelegate<scaleObjectUniformDelegate>(_pluginHandle, "scaleObjectUniform");
         scaleobject = ManualPluginImporter.GetDelegate<scaleObjectDelegate>(_pluginHandle, "scaleObject");
     }
 
@@ -54,10 +49,10 @@ public class Scaler : MonoBehaviour
     // private static getLastNetworkErrorDelegate getlastnetworkerror;
     // private delegate IntPtr getLastNetworkErrorDelegate(int idk);
 
-    public static scaleObjectUniformDelegate scaleobjectuniform;
+    public static scaleObjectUniformDelegate scaleObjectUniform;
     public delegate void scaleObjectUniformDelegate(ref vec3 obj, float uni);
 
     public static scaleObjectDelegate scaleobject;
-    public delegate vec3 scaleObjectDelegate(vec3 max, vec3 min);
+    public delegate vec3 scaleObjectDelegate(vec3 min, vec3 max);
 
 }
