@@ -8,8 +8,5 @@ Aero Keys - rotation
 ctrl + Z - Undo
 ctrl + Y - Redo
 
-## DLLs
-the dlls are placed in the root folder under "DLLs\". to change the functionality of the game replace the dll in "Assets\plugins\" with the active or inactve dll in the "DLLs\" folder. 
-
 ## Video
 https://youtu.be/HnqcjcqR5kk 
