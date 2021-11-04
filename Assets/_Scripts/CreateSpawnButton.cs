@@ -10,25 +10,28 @@ using TMPro;
 public class CreateSpawnButton : MonoBehaviour
 {
     [SerializeField] List<GameObject> items = new List<GameObject>();
+    public static List<GameObject> statItems
+    { get; private set; }
     [SerializeField] GameObject button;
+
     [SerializeField] Transform parent;
+
+
 
     void onclickstuff(GameObject item)
     {
 
-        GameObject obj = Instantiate<GameObject>(item, Vector3.zero, Quaternion.identity, parent);
-        //obj.tag = "Editable";
-
-        if (!obj.GetComponent<ObjectSelect>())
-            obj.AddComponent<ObjectSelect>();
-
+        CreateAction create = new CreateAction(item, new MyTransform(), parent);
+        Invoker.addAction(create);
     }
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        //  createTag("Editable");
 
+        statItems = items;
         int a = 0;
         float spacing = 2;
         var trans = button.GetComponent<RectTransform>();

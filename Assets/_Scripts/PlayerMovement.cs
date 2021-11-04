@@ -76,9 +76,11 @@ public class PlayerMovement : MonoBehaviour, IPlayModeActions
         }
         else
         {
+            //slowdown
+
             GetComponent<Rigidbody>().velocity -= (Vector3)(GetComponent<Rigidbody>().velocity * new float3(1, 0, 1)) * 0.1f;
 
-            if (math.length(GetComponent<Rigidbody>().velocity * new float3(1, 0, 1)) < .3f)
+            if (math.length(GetComponent<Rigidbody>().velocity * new float3(1, 0, 1)) < .03f)
                 GetComponent<Rigidbody>().velocity =
                 new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
 
