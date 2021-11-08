@@ -13,6 +13,7 @@ public class Invoker : MonoBehaviour
     public static List<IMyAction>
     master = new List<IMyAction>(),
     que = new List<IMyAction>();
+    static bool _dirty = false;
 
     void Awake()
     {
@@ -52,12 +53,15 @@ public class Invoker : MonoBehaviour
         counter -= master.Count - counter;
 
         print("Action: " + act.ToString());
+        _dirty = true;
     }
-
 
     // Update is called once per frame
     void Update()
     {
+        if (!_dirty) return;
+        _dirty = false;
+
         foreach (var act in que)
         {
             act.Invoke();
