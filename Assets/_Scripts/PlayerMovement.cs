@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour, IPlayModeActions
 {
     MainControls controls;
     MainControls.PlayModeActions play;
+    public Timer timer;
 
     Vector3 respawnPoint = Vector3.zero;
 
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour, IPlayModeActions
         {
             case PointType.START:
                 //nothing I guess?
+                timer.begin();
                 break;
             case PointType.CHECK:
                 //respawn
@@ -41,6 +43,7 @@ public class PlayerMovement : MonoBehaviour, IPlayModeActions
                 break;
             case PointType.END:
                 //classic
+                timer.end();
                 Application.Quit();
                 break;
         }

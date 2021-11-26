@@ -35,7 +35,7 @@ public class RandScale : MonoBehaviour
             //lastScale = transform.localScale;
             count = 0;
 
-            print(current);
+            //  print(current);
         }
 
         //Mathf.Lerp();

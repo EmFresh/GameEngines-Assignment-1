@@ -147,13 +147,14 @@ public class PanelControl : MonoBehaviour
         }
 
         if (transDirty)
-            if (trans.pos != current.transform.position ||
-                trans.rot != current.transform.rotation)
-            {
-                Invoker.addAction(new TransformAction(current, trans));
-                lastTransform = trans;
-                transDirty = false;
-            }
+        /*  if (trans.pos != current.transform.position ||
+             trans.rot != current.transform.rotation)
+         */
+        {
+            Invoker.addAction(new TransformAction(current, trans));
+            lastTransform = trans;
+            transDirty = false;
+        }
         //Destroy(trans);
 
         if (current.GetComponent<RandScale>())

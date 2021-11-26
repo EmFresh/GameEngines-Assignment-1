@@ -22,14 +22,14 @@ public class Invoker : MonoBehaviour
             if (counter <= 0) return;
             IMyAction act;
             (act = master[--counter]).Undo();
-            CreatePopups.SendPopup("Undo: " + act.ToString());
+            //  CreatePopups.SendPopup("Undo: " + act.ToString());
         };
         redo.started += ctx =>
         {
             if (counter >= master.Count) return;
             IMyAction act;
             (act = master[counter++]).Invoke();
-            CreatePopups.SendPopup("Redo: " + act.ToString());
+            //   CreatePopups.SendPopup("Redo: " + act.ToString());
         };
     }
 
@@ -52,7 +52,7 @@ public class Invoker : MonoBehaviour
         master.RemoveRange(counter, master.Count - counter);
         counter -= master.Count - counter;
 
-        CreatePopups.SendPopup("Action: " + act.ToString());
+        //  CreatePopups.SendPopup("Action: " + act.ToString());
         _dirty = true;
     }
 
