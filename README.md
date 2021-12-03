@@ -8,6 +8,7 @@ WASD  - Movement\
 Aero Keys - rotation\
 ctrl + Z - Undo\
 ctrl + Y - Redo
+
 ### Player
 WASD  - Movement\
 Aero Keys - rotation\
@@ -15,13 +16,13 @@ Space - jump
 
 ## Assets Used 
 ### Assets Used For Aesthetics:
-The folowing was used for any models you see in the project that are not default\
-\
+The folowing was used for any models you see in the project that are not default
+ 
 * https://assetstore.unity.com/packages/3d/environments/industrial/cartoon-city-model-pack-68048
 
 ### DLL Management Code: 
-The fallowing was used as a way to load/un-load DLLs while unity is still running\
-\
+The fallowing was used as a way to load/un-load DLLs while unity is still running to streamline testing
+ 
 * https://jacksondunstan.com/articles/3945
 
 ## Screen Shots
@@ -29,5 +30,5 @@ The fallowing was used as a way to load/un-load DLLs while unity is still runnin
 ![Game Play](https://media.discordapp.net/attachments/913598806929592330/913642974049611786/unknown.png)
 
 ## Video
-Assignment 3 Video:\
+Project Video:\
 
