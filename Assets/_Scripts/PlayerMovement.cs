@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour, IPlayModeActions
     Vector3 respawnPoint = Vector3.zero;
 
     bool move, rotate;
-    float moveSpd = 50, moveMax = 15, rotSpd = 50, jumpForce = 25;
+  public  float moveSpd = 50, moveMax = 15, rotSpd = 50, jumpForce = 25;
 
     private void OnCollisionEnter(Collision other)
     {
@@ -96,8 +96,8 @@ public class PlayerMovement : MonoBehaviour, IPlayModeActions
 
         if (rotate)
         {
-            rot += rotVec * Time.deltaTime * rotSpd;
-            transform.GetChild(0).rotation = Quaternion.Euler(rot);
+            // rot = rotVec / Time.deltaTime * rotSpd;
+            transform.GetChild(0).rotation = /*Quaternion.Euler(rot);*/quat;
             transform.rotation = Quaternion.Euler(rot * new float3(0, 1, 0));
         }
     }
@@ -112,15 +112,22 @@ public class PlayerMovement : MonoBehaviour, IPlayModeActions
     }
 
     Vector3 rot, rotVec;
+    Quaternion quat = Quaternion.identity;
     public void OnRotation(InputAction.CallbackContext ctx)
     {
         rotate = !ctx.canceled;
         if (!rotate) return;
+       
+        rotVec = new Vector3(
+            ctx.ReadValue<Quaternion>().x,
+			 ctx.ReadValue<Quaternion>().y,
+                             
+                             0);
+        quat = ctx.ReadValue<Quaternion>();
 
-        rotVec = new Vector3(-ctx.ReadValue<Vector2>().y, ctx.ReadValue<Vector2>().x, 0);
-        // print(ctx.ReadValue<Vector2>());
+		// print(ctx.ReadValue<Vector2>());
 
-    }
+	}
     public void OnJump(InputAction.CallbackContext ctx)
     {
         if (!ctx.started) return;
